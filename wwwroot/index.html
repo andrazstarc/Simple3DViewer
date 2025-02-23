@@ -1,0 +1,29 @@
+<!DOCTYPE html> <!-- declares that this is a HTML 5 document-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"> <!-- specifies the character encoding-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!--Instructs Internet Explorer to use the latest rendering engine-->
+    <link rel="icon" type="image/x-icon" href="https://cdn.autodesk.io/favicon.ico"> <!--loads a icon which appears in the browser tag-->
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.css"> <!--default styles for the Forge Viewer-->
+    <link rel="stylesheet" href="/main.css"> <!--custom style sheet for this app-->
+    <title>Autodesk Platform Services: Simple Viewer</title> <!--title of the tab in the browser-->
+</head>
+
+<body>
+    <div id="header">
+        <img class="logo" src="https://cdn.autodesk.io/logo/black/stacked.png" alt="Autodesk Platform Services"> <!--an image element of the logo-->
+        <span class="title">Simple Viewer</span> <!--Shows the text next to the logo-->
+        <select name="models" id="models"></select> <!--a "select" element with id "models"-->
+        <button id="upload" title="Upload New Model">Upload</button> <!--a button element with id "upload" and title-->
+        <input style="display: none" type="file" id="input"> <!--a hidden input element (display: none) of type "file" with id "input"-->
+    </div>
+    <div id="preview"></div> <!--this div serves as the container where the APS viewer will be initialized and the model will be displayed-->
+    <div id="overlay"></div> <!--this div serves as a container for the notifications or status messages-->
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.js"></script> <!--loads APS viewer library from their CDN-->
+    <script src="/main.js" type="module"></script> <!--loads the main JS file as a module, which contains custom logic for initializing viewer, 
+    model uploads and managing model selection-->
+</body>
+
+</html>

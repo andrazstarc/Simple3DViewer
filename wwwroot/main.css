@@ -1,0 +1,55 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* makes the page take up entire height of the viewport */
+    font-family: ArtifaktElement;
+}
+
+#header, #preview, #overlay {
+    position: absolute; /* header preview and overlay are positioned absolutely -removed from normal document flow */
+    width: 100%;
+}
+
+#header {
+    height: 3em; /* header is 3em tall */
+    display: flex; /* activates flexbox layout */
+    flex-flow: row nowrap; /* arranges child element in a single horizontal row */
+    justify-content: space-between; /* evenly spaces child elements */
+    align-items: center; /* centers child elements vertically */
+}
+
+#preview, #overlay {
+    top: 3em; /* positions preview and overlay 3em below the top of the viewport */
+    bottom: 0; /* positions preview and overlay at the bottom of the viewport */
+}
+
+#overlay {
+    z-index: 1; /* places overlay above other elements when it is shown */
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background - opacity 50 % */
+    padding: 1em; /* adds padding - inner spacing around overlay */
+    display: none; /* hides overlay by default */
+}
+
+#overlay > .notification {
+    margin: auto;
+    padding: 1em;
+    max-width: 50%; /* limits width of notification to 50% of viewport */
+    background: white;
+}
+
+#header > * {
+    height: 2em;
+    margin: 0 0.5em;
+    font-size: 1em;
+    font-family: ArtifaktElement;
+}
+
+#header .title {
+    flex: 1 0 auto; /* makes title take up remaining space */
+    height: auto; /* allows title to grow vertically */
+}
+
+#models {
+    flex: 0 1 auto; /* makes models take up only the space it needs */
+    min-width: 2em;
+}
