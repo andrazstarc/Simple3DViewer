@@ -22,11 +22,12 @@ export function initViewer(container) {
     return new Promise(function (resolve, reject) {
         Autodesk.Viewing.Initializer({ env: 'AutodeskProduction', getAccessToken }, function () {
             const config = {
-                extensions: ['Autodesk.DocumentBrowser']
+                extensions: []
             };
             const viewer = new Autodesk.Viewing.GuiViewer3D(container, config);
             viewer.start(); // the viewer is started here
-            viewer.setTheme('light-theme'); // the theme is set to light-theme
+            viewer.setTheme('dark-theme'); // the theme is set to light-theme
+            viewer.setLightPreset(16);
             resolve(viewer); // the viewer instance is resolved so it can be used elsewhere in the application
         });
     });
@@ -45,7 +46,6 @@ export function loadModel(viewer, urn) {
         function onDocumentLoadFailure(code, message, errors) {
             reject({ code, message, errors });
         }
-        viewer.setLightPreset(0); // the viewer preset is set using the setLightPreset function
         // The model is then loaded by calling autodesk.Viewing.Document.load with the URN and the success and failure callbacks
         Autodesk.Viewing.Document.load('urn:' + urn, onDocumentLoadSuccess, onDocumentLoadFailure); // "urn:" is prepended to the URN to indicate that it is a URN
     });

@@ -1,15 +1,18 @@
-// Usage: This file is the main entry point for the web application. It sets up the viewer, loads the models, and handles model selection and upload.
+// Usage: This file is the main entry point for the web application. It sets up the viewer, loads the models, and handles model selection.
 
 // Importing the initViewer and loadModel functions from the viewer.js file
 import { initViewer, loadModel } from './viewer.js';
 
 // The viewer is initialized inside the specified DOM element (called "preview") 
 // Once the viewer is ready (resolved Promise) the code checks if the URL contains a hash (assumed to be a model URN)
-initViewer(document.getElementById('preview')).then(viewer => {
+initViewer(document.getElementById('preview')).then(viewer => { //
     const urn = window.location.hash?.substring(1);
     setupModelSelection(viewer, urn); // prepares the model selection breakdown
     setupModelUpload(viewer); // sets up the file upload functionality
 });
+
+
+
 
 // Populate a dropdown list with the available models retrieved from the backend
 async function setupModelSelection(viewer, selectedUrn) {
@@ -35,50 +38,7 @@ async function setupModelSelection(viewer, selectedUrn) {
     }
 }
 
-// This function sets up the file upload functionality
-async function setupModelUpload(viewer) {
-    const upload = document.getElementById('upload'); // get the upload button
-    const input = document.getElementById('input'); // get the file input element
-    const models = document.getElementById('models'); // get the models dropdown element
-    upload.onclick = () => input.click(); // when the upload button is clicked, the file input is clicked
-    // when a file is selected, the file is uploaded to the backend
-    input.onchange = async () => {
-        const file = input.files[0];
-        // create a FormData object and append the file to it
-        let data = new FormData();
-        data.append('model-file', file);
-        // if the file is a ZIP archive, ask for the main design file in the archive
-        if (file.name.endsWith('.zip')) {
-            const entrypoint = window.prompt('Please enter the filename of the main design inside the archive.');
-            data.append('model-zip-entrypoint', entrypoint);
-        }
-        // disable the upload button and the models dropdown to prevent additional actions during the upload
-        upload.setAttribute('disabled', 'true');
-        models.setAttribute('disabled', 'true');
-
-        // Display a notification to the user that a model is being uploaded
-        showNotification(`Uploading model <em>${file.name}</em>. Do not reload the page.`);
-        // send the file to the backend using a POST request
-        try {
-            const resp = await fetch('/api/models', { method: 'POST', body: data });
-            if (!resp.ok) {
-                throw new Error(await resp.text());
-            }
-            const model = await resp.json();
-            setupModelSelection(viewer, model.urn); // upon successful upload, the model selection is updated
-        } catch (err) {
-            alert(`Could not upload model ${file.name}. See the console for more details.`);
-            console.error(err);
-        } finally {
-            clearNotification();
-            upload.removeAttribute('disabled');
-            models.removeAttribute('disabled');
-            input.value = '';
-        } // the notification is cleared and the upload button and models dropdown are re-enabled
-    };
-}
-
-// This function is called when a model is selected from the dropdown
+/// This function is called when a model is selected from the dropdown
 // It checks the translation status of the selected model and loads it into the viewer if it is ready
 // First it clears any existing timeout 
 async function onModelSelected(viewer, urn) {
