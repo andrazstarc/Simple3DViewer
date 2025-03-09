@@ -1,5 +1,7 @@
 /// import * as Autodesk from "@types/forge-viewer";
 
+export let viewer // the viewer object is exported so it can be used in other parts of the application
+
 // This function obtains an access token from the server and calls the callback function with the token and its expiration time
 // It uses fetch API to call the token endpoint
 async function getAccessToken(callback) {
@@ -28,6 +30,7 @@ export function initViewer(container) {
             viewer.start(); // the viewer is started here
             viewer.setTheme('dark-theme'); // the theme is set to light-theme
             viewer.setLightPreset(16);
+            console.log("Viewer initialized", viewer);
             resolve(viewer); // the viewer instance is resolved so it can be used elsewhere in the application
         });
     });

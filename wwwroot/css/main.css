@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100vh; /* makes the page take up entire height of the viewport */
-    font-family: ArtifaktElement;
+    font-family: Arial;
 }
 
 #header, #preview, #overlay {
@@ -41,7 +41,7 @@ body, html {
     height: 2em;
     margin: 0 0.5em;
     font-size: 1em;
-    font-family: ArtifaktElement;
+    font-family: Arial;
 }
 
 #header .title {
@@ -53,3 +53,53 @@ body, html {
     flex: 0 1 auto; /* makes models take up only the space it needs */
     min-width: 2em;
 }
+
+/* Fix topbar position below header */
+#topbar {
+    position: absolute;
+    top: 3em; /* Position it right below the header */
+    width: 100%;
+    height: 3em;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    align-items: right; /* Align items to the right */
+    justify-content: space-between; /* Ensures proper spacing */
+    padding: 0 20px;
+    z-index: 2; /* Ensure it stays above preview */
+}
+
+/* Make sure the preview starts below both header and topbar */
+#preview {
+    top: 6em; /* Leaves space for header + topbar */
+}
+
+/* Ko je Full Screen vklopljen, zagotovimo, da UI ostane viden */
+.fullscreen-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 9999 !important;
+    background: rgba(0, 0, 0, 0.7); /* Temnejše ozadje za boljšo vidljivost */
+}
+
+/* Povečamo topbar, da je bolj uporaben v Full Screen načinu */
+.fullscreen-overlay #topbar {
+    height: 4em;
+    font-size: 1.2em;
+    padding: 0 30px;
+}
+
+/* Povečamo iskalno polje v Full Screen načinu */
+.fullscreen-overlay #filter {
+    width: 250px;
+    font-size: 1.2em;
+    padding: 5px;
+}
+
+/* Gumb Live Search naj bo večji v Full Screen načinu */
+.fullscreen-overlay #toggle-live-search {
+    font-size: 1.2em;
+    padding: 8px 20px;
+}
+

@@ -7,16 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!--Instructs Internet Explorer to use the latest rendering engine-->
     <link rel="icon" type="image/x-icon" href="https://cdn.autodesk.io/favicon.ico"> <!--loads a icon which appears in the browser tag-->
     <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.css"> <!--default styles for the Forge Viewer-->
-    <link rel="stylesheet" href="/main.css"> <!--custom style sheet for this app-->
-    <title>Autodesk Platform Services: Simple Viewer</title> <!--title of the tab in the browser-->
+    <link rel="stylesheet" href="/css/main.css"> <!--custom style sheet for this app-->
+    <title>ELES BIM Viewer</title> <!--title of the tab in the browser-->
 </head>
 
 <body>
     <div id="header">
         <img class="logo" src="https://cdn.autodesk.io/logo/black/stacked.png" alt="Autodesk Platform Services"> <!--an image element of the logo-->
-        <span class="title">Simple Viewer</span> <!--Shows the text next to the logo-->
+        <span class="title">ELES BIM Viewer</span> <!--Shows the text next to the logo-->
         <select name="models" id="models"></select> <!--a "select" element with id "models"-->
     </div>
+
+    <div id="topbar">
+        <div id="search-container">
+            <input type="search" id="filter" value="" placeholder="Deep search">
+            <button id="toggle-live-search">Live Search: OFF</button>
+        </div>
+    </div> 
+
     <div id="preview"></div> <!--this div serves as the container where the APS viewer will be initialized and the model will be displayed-->
     <div id="overlay"></div> <!--this div serves as a container for the notifications or status messages-->
     <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.js"></script> <!--loads APS viewer library from their CDN-->

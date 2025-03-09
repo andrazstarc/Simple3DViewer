@@ -1,17 +1,28 @@
 // Usage: This file is the main entry point for the web application. It sets up the viewer, loads the models, and handles model selection.
 
 // Importing the initViewer and loadModel functions from the viewer.js file
-import { initViewer, loadModel } from './viewer.js';
+import { initViewer, loadModel } from './js/viewer.js';
+import {initializeSearch} from "./js/search.js"; // Importing the search functionality
+
+let viewer;
 
 // The viewer is initialized inside the specified DOM element (called "preview") 
 // Once the viewer is ready (resolved Promise) the code checks if the URL contains a hash (assumed to be a model URN)
-initViewer(document.getElementById('preview')).then(viewer => { //
+initViewer(document.getElementById('preview')).then(viewerInstance => { // the viewer is initialized here
+    viewer = viewerInstance;
+    console.log("Viewer instance received in main.js");
+    
+    initializeSearch(viewer); // the search functionality is initialized
+
     const urn = window.location.hash?.substring(1);
     setupModelSelection(viewer, urn); // prepares the model selection breakdown
-    setupModelUpload(viewer); // sets up the file upload functionality
+
+    document.addEventListener("fullscreenchange", handleFullScreen);
+    document.addEventListener("webkitfullscreenchange", handleFullScreen);
+    document.addEventListener("mozfullscreenchange", handleFullScreen);
+    document.addEventListener("MSFullscreenChange", handleFullScreen);
+
 });
-
-
 
 
 // Populate a dropdown list with the available models retrieved from the backend
@@ -88,4 +99,34 @@ function clearNotification() {
     const overlay = document.getElementById('overlay'); // get the overlay element
     overlay.innerHTML = ''; // clear the inner HTML of the overlay
     overlay.style.display = 'none'; // hide the overlay
+}
+
+function handleFullScreen() {
+    if (!viewer) {
+        console.error("Viewer is not defined in Full Screen function!");
+        return;
+    }
+
+    const viewerContainer = viewer.container;
+    const topbar = document.getElementById("topbar"); // Get the topbar element
+
+    if (!topbar) {
+        console.error("Topbar element not found!");
+        return;
+    }
+
+    if (document.fullscreenElement) {
+        console.log("Full Screen ON - Premikamo UI v #viewer");
+
+        // Premaknemo UI v Full Screen mode
+        viewerContainer.appendChild(topbar);
+        topbar.classList.add("fullscreen-overlay");
+
+    } else {
+        console.log("Full Screen OFF - Vračamo UI na originalno mesto");
+
+        // Vrnemo UI nazaj v body
+        document.body.appendChild(topbar);
+        topbar.classList.remove("fullscreen-overlay");
+    }
 }
