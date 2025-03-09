@@ -15,6 +15,11 @@ app.use(require('./routes/auth.js'));
 // Import the routes in models.js file
 app.use(require('./routes/models.js'));
 
+// Preusmeri vse /bucket/:name poti na frontend (index.html)
+app.get('/bucket/:name', (req, res) => {
+    res.sendFile(__dirname + '/wwwroot/index.html');
+});
+
 // Start the server on the specified port
 app.listen(PORT, function () { console.log(`Server listening on port ${PORT}...`); });
 
