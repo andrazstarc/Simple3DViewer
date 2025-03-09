@@ -42,6 +42,12 @@ export function initializeSearch(viewer) {
         }
     });
 
+    searchInput.addEventListener("input", function () {
+        if (searchInput.value === "") {
+            resetModelView(viewer); // Ob praznem iskalniku prikažemo celoten model
+        }
+    });
+
 };
 
 // Function to search the model based on input
@@ -133,3 +139,19 @@ function applySearchResults(viewer, matchingDbIds, searchTerm) {
     }
 }
 
+// Function to reset the model view
+function resetModelView(viewer) {
+    const instanceTree = viewer.model?.getData()?.instanceTree;
+    if (!instanceTree) {
+        console.error("Instance tree not available.");
+        return;
+    }
+
+    let allDbIds = [];
+    instanceTree.enumNodeChildren(instanceTree.getRootId(), (dbId) => {
+        allDbIds.push(dbId);
+    }, true);
+
+    viewer.show(allDbIds); // Prikaži vse elemente nazaj
+    viewer.fitToView(); // Prilagodi pogled
+}

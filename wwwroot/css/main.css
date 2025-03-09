@@ -1,76 +1,65 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100vh; /* makes the page take up entire height of the viewport */
+    height: 100vh;
     font-family: Arial;
 }
 
-#header, #preview, #overlay {
-    position: absolute; /* header preview and overlay are positioned absolutely -removed from normal document flow */
-    width: 100%;
-}
-
+/* Header vsebuje logotip + iskanje */
 #header {
-    height: 3em; /* header is 3em tall */
-    display: flex; /* activates flexbox layout */
-    flex-flow: row nowrap; /* arranges child element in a single horizontal row */
-    justify-content: space-between; /* evenly spaces child elements */
-    align-items: center; /* centers child elements vertically */
-}
-
-#preview, #overlay {
-    top: 3em; /* positions preview and overlay 3em below the top of the viewport */
-    bottom: 0; /* positions preview and overlay at the bottom of the viewport */
-}
-
-#overlay {
-    z-index: 1; /* places overlay above other elements when it is shown */
-    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background - opacity 50 % */
-    padding: 1em; /* adds padding - inner spacing around overlay */
-    display: none; /* hides overlay by default */
-}
-
-#overlay > .notification {
-    margin: auto;
-    padding: 1em;
-    max-width: 50%; /* limits width of notification to 50% of viewport */
-    background: white;
-}
-
-#header > * {
-    height: 2em;
-    margin: 0 0.5em;
-    font-size: 1em;
-    font-family: Arial;
-}
-
-#header .title {
-    flex: 1 0 auto; /* makes title take up remaining space */
-    height: auto; /* allows title to grow vertically */
-}
-
-#models {
-    flex: 0 1 auto; /* makes models take up only the space it needs */
-    min-width: 2em;
-}
-
-/* Fix topbar position below header */
-#topbar {
-    position: absolute;
-    top: 3em; /* Position it right below the header */
-    width: 100%;
     height: 3em;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    width: 100%;
+    background: rgba(114, 125, 132, 0.15); /* color of the header */
     display: flex;
-    align-items: right; /* Align items to the right */
-    justify-content: space-between; /* Ensures proper spacing */
+    align-items: center;
+    justify-content: space-between;
     padding: 0 20px;
-    z-index: 2; /* Ensure it stays above preview */
+    box-sizing: border-box;
+    z-index: 2;
+    position: absolute;
 }
 
-/* Make sure the preview starts below both header and topbar */
+/* Logotip in naslov levo */
+#logo-container {
+    display: flex;
+    align-items: center;
+}
+
+#logo-container .logo {
+    height: 2.5em;
+    margin-right: 25px;
+}
+
+#logo-container .title {
+    font-size: 1.5em;
+    color: black;
+    font-family: Lato, sans-serif;
+    font-weight: 500;
+}
+
+/* Iskanje desno */
+#search-container {
+    display: flex;
+    align-items: right;
+}
+
+#search-container input {
+    padding: 5px;
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+#search-container button {
+    padding: 5px 10px;
+    font-size: 1em;
+}
+
+/* Viewer začne pod headerjem */
 #preview {
-    top: 6em; /* Leaves space for header + topbar */
+    position: absolute;
+    top: 3em;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Ko je Full Screen vklopljen, zagotovimo, da UI ostane viden */
@@ -102,4 +91,3 @@ body, html {
     font-size: 1.2em;
     padding: 8px 20px;
 }
-

@@ -5,7 +5,8 @@
     <meta charset="UTF-8"> <!-- specifies the character encoding-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge"> <!--Instructs Internet Explorer to use the latest rendering engine-->
-    <link rel="icon" type="image/x-icon" href="https://cdn.autodesk.io/favicon.ico"> <!--loads a icon which appears in the browser tag-->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/assets/images/eles-logo-small.png"> <!--loads a icon which appears in the browser tag-->
     <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/style.css"> <!--default styles for the Forge Viewer-->
     <link rel="stylesheet" href="/css/main.css"> <!--custom style sheet for this app-->
     <title>ELES BIM Viewer</title> <!--title of the tab in the browser-->
@@ -13,17 +14,15 @@
 
 <body>
     <div id="header">
-        <img class="logo" src="https://cdn.autodesk.io/logo/black/stacked.png" alt="Autodesk Platform Services"> <!--an image element of the logo-->
-        <span class="title">ELES BIM Viewer</span> <!--Shows the text next to the logo-->
-        <select name="models" id="models"></select> <!--a "select" element with id "models"-->
-    </div>
-
-    <div id="topbar">
+        <div id="logo-container">
+            <img class="logo" src="/assets/images/eles-logo-big.png" alt="ELES"> <!--an image element of the logo-->
+            <span class="title">BIM Viewer</span> <!--Shows the text next to the logo-->
+        </div>
         <div id="search-container">
-            <input type="search" id="filter" value="" placeholder="Deep search">
+            <input type="search" id="filter" value="" placeholder="Search model">
             <button id="toggle-live-search">Live Search: OFF</button>
         </div>
-    </div> 
+    </div>
 
     <div id="preview"></div> <!--this div serves as the container where the APS viewer will be initialized and the model will be displayed-->
     <div id="overlay"></div> <!--this div serves as a container for the notifications or status messages-->
